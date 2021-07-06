@@ -29,7 +29,6 @@ export default class PostCreate extends React.Component {
     );
   }
 
-
   render(){
     return( 
     <SafeAreaView style={{flex:1}}>

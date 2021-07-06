@@ -42,13 +42,13 @@ export default class Home extends React.Component {
               style={[styles.button, { backgroundColor:'rgba(60, 179, 113, 0.5)' }]}
             >
               <Text style={styles.text}>
-                Principal
+                Main
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(238, 0, 238, 0.5)' }]}>
+            <TouchableOpacity style={[styles.button, { backgroundColor:`#daa520` }]}>
               <Text style={styles.text}>
-                Perfil
+                Profile
               </Text>
             </TouchableOpacity>
           </View>
@@ -56,13 +56,13 @@ export default class Home extends React.Component {
           <View style={{flexDirection:'row', }}>
             <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
               <Text style={styles.text}>
-                Posteos
+                Posts
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:'rgba(0, 165, 188, 0.8)' }]}>
+            <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:`#006400` }]}>
               <Text style={styles.text}>
-                Mapa
+                Map
               </Text>
             </TouchableOpacity>
           </View>

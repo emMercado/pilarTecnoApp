@@ -9,7 +9,7 @@ export const HomeStackScreen = () => {
         <HomeStack.Navigator>
             <HomeStack.Screen name="Home" component={Home} 
                 options={{
-                    title: 'My home',
+                    title: 'Home',
                     headerStyle: {
                         backgroundColor: `#d2691e`,
                     },
@@ -17,7 +17,6 @@ export const HomeStackScreen = () => {
                     headerTitleStyle: {
                         fontWeight: 'bold',
                     },
-                    
             }}/>            
         </HomeStack.Navigator>
     )

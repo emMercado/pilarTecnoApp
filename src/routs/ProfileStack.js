@@ -9,7 +9,7 @@ export const ProfileStackScreen = () => {
         <ProfileStack.Navigator>
             <ProfileStack.Screen name="Profile" component={Profile} 
             options={{
-                title: 'ProfileStack',
+                title: 'My Profile',
                 headerStyle: {
                     backgroundColor: `#d2691e`,
                 },
@@ -17,8 +17,7 @@ export const ProfileStackScreen = () => {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
-                
-        }}/>            
+            }}/>            
         </ProfileStack.Navigator>
     )
 }
