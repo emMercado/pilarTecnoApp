@@ -10,8 +10,29 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "17.0.1",
-    "react-native": "0.64.2"
+    "@babel/preset-env": "^7.1.6",
+    "@callstack/react-theme-provider": "^3.0.6",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/material-bottom-tabs": "^5.3.15",
+    "@react-navigation/native": "^5.9.4",
+    "@react-navigation/stack": "^5.14.5",
+    "react": "^17.0.1",
+    "react-native": "0.64.2",
+    "react-native-elements": "^3.4.2",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-paper": "^4.9.2",
+    "react-native-reanimated": "^2.2.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.4.0",
+    "react-native-svg": "^12.1.1",
+    "react-native-vector-icons": "^8.1.0",
+    "react-navigation": "^4.4.4",
+    "react-navigation-material-bottom-tabs": "^2.3.4",
+    "typescript": "^4.3.5",
+    "watchman": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.14.6",
@@ -25,5 +46,17 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emMercadopilarTecnoApp.git"
+  },
+  "author": "emMercado",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "description": ""
 }

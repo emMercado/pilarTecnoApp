@@ -14,27 +14,26 @@ import {
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
-
+const image = { uri:'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg'}
 
 export default class Home extends React.Component {
 
   _onHomePress = () => {
     Alert.alert(
-      "Hola",
-      "Ya te encuentras ahí",
+      "Hi!",
+      "You are already there",
       [
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]
     );
   }
 
-
   render(){
     return( 
     <SafeAreaView style={{flex:1}}>
       <ImageBackground
-        style={{height}}
-        source={require('../assets/images/fondo6.jpg')}
+        source={image} 
+        style={styles.image}
       >
         <View style={{flexDirection:'column', height, justifyContent:'center'}}>
           <View style={{flexDirection:'row'}}>   
@@ -55,13 +54,13 @@ export default class Home extends React.Component {
           </View>
 
           <View style={{flexDirection:'row', }}>
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
+            <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
               <Text style={styles.text}>
                 Posteos
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(0, 165, 188, 0.8)' }]}>
+            <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:'rgba(0, 165, 188, 0.8)' }]}>
               <Text style={styles.text}>
                 Mapa
               </Text>
@@ -75,6 +74,11 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
   text: {
     fontSize:30, 
     fontWeight:'bold', 
@@ -82,10 +86,22 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   button: {
-    margin: width/20,
-    height:width/2.5,
+    marginTop: 50,
+    marginBottom: 250,
+    marginLeft: width/15,
+    height:width/4.5,
     width:width/2.5,
-    borderRadius:15,
+    borderRadius:3,
+    justifyContent:'center',
+    backgroundColor:'#fff',
+    zIndex:1
+  },
+  buttonBottom: {
+    marginBottom: 60,
+    marginLeft: width/15,
+    height:width/4.5,
+    width:width/2.5,
+    borderRadius:3,
     justifyContent:'center',
     backgroundColor:'#fff',
     zIndex:1
