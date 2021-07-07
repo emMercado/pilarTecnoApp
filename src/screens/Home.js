@@ -54,13 +54,13 @@ export default class Home extends React.Component {
           </View>
 
           <View style={{flexDirection:'row', }}>
-            <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
+            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
               <Text style={styles.text}>
                 Posts
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.buttonBottom, { backgroundColor:`#006400` }]}>
+            <TouchableOpacity style={[styles.button, { backgroundColor:`#006400` }]}>
               <Text style={styles.text}>
                 Map
               </Text>
@@ -86,24 +86,12 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   button: {
-    marginTop: 50,
-    marginBottom: 250,
-    marginLeft: width/15,
-    height:width/4.5,
+    margin: width/20,
+    height:width/2.5,
     width:width/2.5,
-    borderRadius:3,
+    borderRadius:15,
     justifyContent:'center',
     backgroundColor:'#fff',
     zIndex:1
   },
-  buttonBottom: {
-    marginBottom: 60,
-    marginLeft: width/15,
-    height:width/4.5,
-    width:width/2.5,
-    borderRadius:3,
-    justifyContent:'center',
-    backgroundColor:'#fff',
-    zIndex:1
-  }
 })
