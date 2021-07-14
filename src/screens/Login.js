@@ -14,11 +14,24 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 
+import auth from '@react-native-firebase/auth';
+
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin'; 
+import {AsyncStorage} from '@react-native-async-storage/async-storage';
+
+import { connect } from 'react-redux';
+import { actions } from '../store';
+
+
+GoogleSignin.configure({   
+  webClientId: "79232659516-fmr9un4huvq9ilpnfc8k04dfjmu5ti98.apps.googleusercontent.com",        
+});
+
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 const image = { uri:'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg'}
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 
   _onMapPress = () => {
     Alert.alert(
@@ -30,6 +43,15 @@ export default class Login extends React.Component {
     );
   }
 
+  onGoogleButtonPress = async () => {
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  }
+
   render(){
     return( 
       <SafeAreaView style={{flex:1}}>
@@ -37,37 +59,41 @@ export default class Login extends React.Component {
           source={image} 
           style={styles.image}
         >
-          <Text style={styles.text}> Log In </Text>
-          <Input style={styles.input}
-          placeholder='Your username or Email'
-          leftIcon={<Icon 
-              name='user'
-              size={30}
-              color='#008080'/>}
-          />
-          <Input style={styles.input} 
-          placeholder="Enter your password" 
-          secureTextEntry={true} 
-          leftIcon={<Icon 
-              name='lock'
-              size={30}
-              color='#008080'/>}
-              />
-          <TouchableOpacity style={[styles.buttonSinIn, { backgroundColor:'#2f4f4f' }]}>
-            <Text style={styles.textButton}>
-              Sign In
-            </Text>
-          </TouchableOpacity>    
-          <TouchableOpacity style={[styles.buttonSinUp, { backgroundColor:'#2f4f4f' }]}>
-            <Text style={styles.textButton}>
-              Sign Up
-            </Text>
-          </TouchableOpacity>    
+          
+        <GoogleSigninButton
+                  style={{ width: 192, height: 48 }}
+                  size={GoogleSigninButton.Size.Wide}
+                  color={GoogleSigninButton.Color.Dark}
+                  onPress={()=>this.onGoogleButtonPress().
+                    then(async(data)=>{
+                      console.log('Signed in with Google!')
+                      if(data){
+                        console.log('res login: '+JSON.stringify(data.user))
+                        try {
+                          await AsyncStorage.setItem('isloged', JSON.stringify(data.user))
+                        } catch (e) {
+                          console.log('ubo un error :'+e)
+                        }
+                        this.props.setUser(data.user)
+                      }
+                    }).catch (err => {console.log(err)})
+                  }
+              />    
         </ImageBackground>
     </SafeAreaView>
      
     )}
 }
+
+const mapDispatchToProps = dispatch => ({
+  setUser: (data) =>
+  dispatch(actions.user.setUser(data)),
+})
+const mapStateToProps = state => ({
+  user: state.user.user
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)((Login))
 
 const styles = StyleSheet.create({
   image: {
@@ -114,3 +140,31 @@ const styles = StyleSheet.create({
       justifyContent:'center',
     },
   })
+
+ {/*
+  <Text style={styles.text}> Log In </Text>
+          <Input style={styles.input}
+          placeholder='Your username or Email'
+          leftIcon={<Icon 
+              name='user'
+              size={30}
+              color='#008080'/>}
+          />
+          <Input style={styles.input} 
+          placeholder="Enter your password" 
+          secureTextEntry={true} 
+          leftIcon={<Icon 
+              name='user'
+              size={30}
+              color='#008080'/>}
+              />
+          <TouchableOpacity style={[styles.buttonSinIn, { backgroundColor:'#2f4f4f' }]}>
+            <Text style={styles.textButton}>
+              Sign In
+            </Text>
+          </TouchableOpacity>    
+          <TouchableOpacity style={[styles.buttonSinUp, { backgroundColor:'#2f4f4f' }]}>
+            <Text style={styles.textButton}>
+              Sign Up
+            </Text>
+          </TouchableOpacity> */}
