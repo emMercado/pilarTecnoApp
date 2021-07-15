@@ -5,9 +5,6 @@ import { Provider } from 'react-redux';
 import { store, actions } from '../store';
 import auth from '@react-native-firebase/auth';
 import { useDispatch } from 'react-redux';
-/* import {Dimensions,} from 'react-native'; */
-/* const height = Dimensions.get('window').height
-const width = Dimensions.get('window').width */
 
 const App = (props) => {
 
@@ -28,7 +25,7 @@ const App = (props) => {
       const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
       return subscriber; // unsubscribe on unmount
     }, []);
-    
+
     if (initializing) { return null; }
     return (
       <NavigationContainer ref={navigationRef}>

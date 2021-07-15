@@ -127,7 +127,8 @@ class Login extends React.Component {
               Sign In
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.buttonSinUp, { backgroundColor: '#2f4f4f' }]}>
+          <TouchableOpacity style={[styles.buttonSinUp, { backgroundColor: '#2f4f4f' }]}
+            onPress={()=> this.props.navigation.navigate('Create')}>
             <Text style={styles.textButton}>
               Sign Up
             </Text>
