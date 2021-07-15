@@ -17,6 +17,10 @@ const width = Dimensions.get('window').width
 const image = { uri:'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg'}
 
 export default class Home extends React.Component {
+  
+  constructor(props) {
+    super(props);
+  } 
 
   _onHomePress = () => {
     Alert.alert(
@@ -38,6 +42,7 @@ export default class Home extends React.Component {
         <View style={{flexDirection:'column', height, justifyContent:'center'}}>
           <View style={{flexDirection:'row'}}>   
             <TouchableOpacity 
+              
               onPress={()=>this._onHomePress()}
               style={[styles.button, { backgroundColor:'rgba(60, 179, 113, 0.5)' }]}
             >
@@ -46,7 +51,9 @@ export default class Home extends React.Component {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor:`#daa520` }]}>
+            <TouchableOpacity 
+              onPress={()=> this.props.navigation.navigate('Profile')}
+              style={[styles.button, { backgroundColor:`#daa520` }]}>
               <Text style={styles.text}>
                 Profile
               </Text>
@@ -54,13 +61,17 @@ export default class Home extends React.Component {
           </View>
 
           <View style={{flexDirection:'row', }}>
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
+            <TouchableOpacity 
+              onPress={()=> this.props.navigation.navigate('Posts')}
+              style={[styles.button, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
               <Text style={styles.text}>
                 Posts
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor:`#006400` }]}>
+            <TouchableOpacity 
+              onPress={()=> this.props.navigation.navigate('Map')}
+              style={[styles.button, { backgroundColor:`#006400` }]}>
               <Text style={styles.text}>
                 Map
               </Text>

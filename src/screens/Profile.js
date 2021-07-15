@@ -11,8 +11,11 @@ import { Avatar, Button } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import { actions } from '../store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const { height, width } = Dimensions.get('window')
+
 class Profile extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,18 +33,18 @@ class Profile extends React.Component {
             name: user.providerData[0].displayName
         })
     }
+
     render() {
         const { email, photoURL, name } = this.state
         return (
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={styles.content}>
                     <View style={{ alignItems: 'center' }}>
-                        <Avatar
+                        {photoURL ? <Avatar
                             rounded
-
                             source={{ uri: photoURL }}
-                            size='xlarge'
-                        />
+                            size='xlarge' /> : null}
+
                         <View style={styles.dataContainer}>
                             <Text style={styles.infoText}>{email}</Text>
                             <Text style={styles.infoText}>{name}</Text>
@@ -49,6 +52,7 @@ class Profile extends React.Component {
                     </View>
                 </View>
                 <View style={{ flex: 1, top: 50, width: width * 0.5 }}>
+
                     <Button title='Salir' onPress={() => {
                         auth()
                             .signOut()
@@ -56,18 +60,19 @@ class Profile extends React.Component {
                                 console.log('User signed out!'),
                                     this.props.setUser({ user: null })
                                 try {
-                                    await AsyncStorage.delItem('isloged')
+                                    await AsyncStorage.removeItem('isLog')
                                 } catch (e) {
                                     console.log('ubo un error :' + e)
                                 }
                             })
-                            .catch (err => {console.log(err)})
-                    }} />
+                    }}
+                    />
                 </View>
             </SafeAreaView>
         )
     }
 }
+
 const styles = StyleSheet.create({
     text: {
         fontSize: 30,
@@ -91,11 +96,14 @@ const styles = StyleSheet.create({
         color: 'grey'
     }
 })
+
 const mapDispatchToProps = dispatch => ({
     setUser: ({ user }) =>
         dispatch(actions.user.setUser({ user })),
 })
+
 const mapStateToProps = state => ({
     user: state.user.user
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)((Profile))
