@@ -40,14 +40,27 @@ class Profile extends React.Component {
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={styles.content}>
                     <View style={{ alignItems: 'center' }}>
-                        {photoURL ? <Avatar
-                            rounded
-                            source={{ uri: photoURL }}
-                            size='xlarge' /> : null}
-
+                        {photoURL ?
+                            <Avatar
+                                rounded
+                                source={{ uri: photoURL }}
+                                size='xlarge'
+                            />
+                            :
+                            <Avatar
+                                rounded
+                                source={require('../assets/images/avatar.png')}
+                                size='xlarge'
+                            />
+                        }
                         <View style={styles.dataContainer}>
                             <Text style={styles.infoText}>{email}</Text>
-                            <Text style={styles.infoText}>{name}</Text>
+                            {
+                                name ?
+                                    <Text style={styles.infoText}>{name}</Text>
+                                    :
+                                    <Text style={styles.infoText}>Username</Text>
+                            }
                         </View>
                     </View>
                 </View>
@@ -64,7 +77,7 @@ class Profile extends React.Component {
                                 } catch (e) {
                                     console.log('ubo un error :' + e)
                                 }
-                            })
+                            }).catch(err => console.log(err));
                     }}
                     />
                 </View>
