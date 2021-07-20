@@ -1,9 +1,9 @@
 import { applyMiddleware, compose, createStore } from "redux";
-import {} from 'react-redux';
+import { } from 'react-redux';
 import thunk from 'redux-thunk';
-import {logger} from 'redux-logger';
-import {rootReducer} from './reducers';
-import {actions} from './actions';
+import { logger } from 'redux-logger';
+import { rootReducer } from './reducers';
+import { actions } from './actions';
 
 
 const initialState = {};
@@ -13,4 +13,4 @@ const store = createStore(
     compose(applyMiddleware(thunk, logger)),
 );
 
-export {store, actions};
+export { store, actions };
