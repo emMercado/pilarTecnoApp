@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,41 +11,69 @@ import {
   View,
   Alert
 } from 'react-native';
+/* import { Button, Divider } from 'react-native-elements' */
+import { actions } from '../store'
+import { connect } from 'react-redux'
+
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
-const image = { uri:'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg'}
+const image = { uri: 'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg' }
 
 
-export default class PostDetail extends React.Component {
+class PostDetail extends React.Component {
 
-  _onHomePress = () => {
-    Alert.alert(
-      "Hi!",
-      "You are already there",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+  constructor(props) {
+    super(props);
+
+  }
+
+  _delPost = () => {
+    const { item } = this.props.route.params;
+    const { id } = item;
+
+    this.props.delPost({ id }).then(() => {
+      this.props.navigation.goBack()
+    })
   }
 
 
-  render(){
-    return( 
-    <SafeAreaView style={{flex:1}}>
-      <ImageBackground
-        source={image} 
-        style={styles.image}
-      >
-        <View style={{flexDirection:'column', height, justifyContent:'center'}}>
-          <View style={{flexDirection:'row'}}>   
-           
-          </View>
-        </View>
+  render() {
+    const { item } = this.props.route.params;
+    return (
 
-      </ImageBackground>
-    </SafeAreaView>
-    )}
+      <SafeAreaView style={{ flex: 1 }}>
+        <ImageBackground
+          source={image}
+          style={styles.image}
+        >
+          <View style={{ flexDirection: 'column', height, justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row' }}>
+              <View >
+                <Text >
+                  {item.title}
+                </Text>
+              </View>
+              <View >
+                <Text >
+                  {item.body}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => this._delPost()}
+                  style={[styles.button, { backgroundColor: `#daa520` }]}>
+                  <Text style={styles.text}>
+                    eliminar
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+
+            </View>
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -55,18 +83,47 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
-    fontSize:30, 
-    fontWeight:'bold', 
-    color:'#fff',
-    textAlign:'center'
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center'
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center'
+  },
+  titlecontainer: {
+    margin: width / 20,
+    height: width / 2.5,
+    width: width / 2.5,
+    borderRadius: 15,
+    justifyContent: 'center',
+  },
+  bodycontainer: {
+
+    borderRadius: 15,
+    justifyContent: 'center',
   },
   button: {
-    margin: width/20,
-    height:width/2.5,
-    width:width/2.5,
-    borderRadius:15,
-    justifyContent:'center',
-    backgroundColor:'#fff',
-    zIndex:1
+    margin: width / 20,
+    height: width / 2.5,
+    width: width / 2.5,
+    borderRadius: 15,
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    zIndex: 1
   }
+
 })
+
+const mapDispatchToProps = dispatch => ({
+  delPost: (data) =>
+    dispatch(actions.posts.delPost(data)),
+})
+
+const mapStateToProps = state => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)((PostDetail))

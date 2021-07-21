@@ -50,7 +50,7 @@ export const delPost = (data) => (dispatch) => {
     return deletePost({ id })
         .then(([response, json]) => {
             if (response.ok === true) {
-                dispatch(delPostSuceess({ data }))
+                dispatch(delPostSuceess( data ))
             } return json
         })
         .catch((error) => console.log(error))

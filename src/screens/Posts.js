@@ -58,11 +58,11 @@ class Posts extends React.Component {
             </View>
         </TouchableWithoutFeedback>
     )
-   
+
     render() {
-        
+
         return (
-            
+
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
 
                 {
@@ -77,7 +77,7 @@ class Posts extends React.Component {
                                 <Button title='Crear Nuevo Post'
                                     onPress={() => this.props.navigation.navigate('PostCreate')} />
                                 <FlatList
-                                    showsVerticalScrollIndicator={false} 
+                                    showsVerticalScrollIndicator={false}
                                     keyExtractor={this.keyExtractor}
                                     data={this.props.posts.reverse()}
                                     renderItem={this.renderItem}
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: 'center',
     },
-    flatLIst:{
+    flatLIst: {
         marginBottom: 110,
     }
 })
