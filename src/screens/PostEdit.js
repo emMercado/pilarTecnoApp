@@ -1,50 +1,91 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   Dimensions,
-  StatusBar,
   StyleSheet,
-  Text,
   ImageBackground,
-  TouchableOpacity,
   View,
-  Alert
 } from 'react-native';
+import { Input, Button, Divider } from 'react-native-elements'
+import { actions } from '../store';
+import { connect } from 'react-redux';
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
-const image = { uri:'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg'}
+const image = { uri: 'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg' }
 
-export default class PostEdit extends React.Component {
 
-  _onHomePress = () => {
-    Alert.alert(
-      "Hi!",
-      "You are already there",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+class PostEdit extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      body: '',
+    }
   }
 
+  componentDidMount = () => {
+    const { item } = this.props.route.params;
+    item ?
+      this.setState({
+        title: item.title,
+        body: item.body,
+      })
+      : null
+  }
 
-  render(){
-    return( 
-    <SafeAreaView style={{flex:1}}>
-      <ImageBackground
-        source={image} 
-        style={styles.image}
-      >
-        <View style={{flexDirection:'column', height, justifyContent:'center'}}>
-          <View style={{flexDirection:'row'}}>   
-           
+  _updatePost = () => {
+    const { item } = this.props.route.params;
+    const { id } = item
+    const { title, body } = this.state
+
+    this.props.updatePosts({ id, title, body }).then(() => {
+      this.props.navigation.popToTop()/* navigate('Posts') */
+    })
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
+        <ImageBackground
+          source={image}
+          style={styles.image}
+        >
+          <View style={{ flex: 1 }}>
+            <Input
+              placeholder='Titulo'
+              inputContainerStyle={{
+                width: width * 0.8, alignItems: 'flex-start',
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              value={this.state.title}
+              onChangeText={(value) => this.setState({ title: value })}
+            />
+            <Input
+              placeholder='Descripcion'
+              inputContainerStyle={{
+                width: width * 0.8, alignItems: 'flex-start',
+                alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
+                pading: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              multiline
+              numberOfLines={2}
+              value={this.state.body}
+              onChangeText={(value) => this.setState({ body: value })}
+            />
+            <Button
+              title='Save Change' onPress={() => this._updatePost()}
+              style={{ width: width * 0.8 }} />
           </View>
-        </View>
-
-      </ImageBackground>
-    </SafeAreaView>
-    )}
+        </ImageBackground>
+      </SafeAreaView >
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -54,18 +95,28 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
-    fontSize:30, 
-    fontWeight:'bold', 
-    color:'#fff',
-    textAlign:'center'
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center'
   },
   button: {
-    margin: width/20,
-    height:width/2.5,
-    width:width/2.5,
-    borderRadius:15,
-    justifyContent:'center',
-    backgroundColor:'#fff',
-    zIndex:1
+    margin: width / 20,
+    height: width / 2.5,
+    width: width / 2.5,
+    borderRadius: 15,
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    zIndex: 1
   }
 })
+
+const mapDispatchToProps = dispatch => ({
+  updatePosts: (data) =>
+    dispatch(actions.posts.updatePosts(data)),
+})
+
+const mapStateToProps = state => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)((PostEdit))

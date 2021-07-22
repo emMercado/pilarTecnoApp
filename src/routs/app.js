@@ -12,11 +12,9 @@ export default AppStack = (props) => {
         <Stack.Navigator headerMode="none">
             {
                 user ? (
-                 <Stack.Screen name="AppStack" component={Tabs} /> 
-                    
-                ) : (
-                <Stack.Screen name="CreateStack" component={CreateStack} />
-                   
+                    <Stack.Screen name="AppStack" component={Tabs} /> 
+                    ) : (
+                    <Stack.Screen name="CreateStack" component={CreateStack} />
                 )
             }
         </Stack.Navigator>

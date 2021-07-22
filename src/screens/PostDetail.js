@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   Dimensions,
-  StatusBar,
   StyleSheet,
   Text,
   ImageBackground,
   TouchableOpacity,
   View,
-  Alert
 } from 'react-native';
-/* import { Button, Divider } from 'react-native-elements' */
+
 import { actions } from '../store'
 import { connect } from 'react-redux'
-
+import { Divider } from 'react-native-elements'
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -25,7 +22,6 @@ class PostDetail extends React.Component {
 
   constructor(props) {
     super(props);
-
   }
 
   _delPost = () => {
@@ -37,37 +33,42 @@ class PostDetail extends React.Component {
     })
   }
 
-
   render() {
     const { item } = this.props.route.params;
     return (
 
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
         <ImageBackground
           source={image}
           style={styles.image}
         >
-          <View style={{ flexDirection: 'column', height, justifyContent: 'center' }}>
+          <View style={{ flex: 1 }} >
+            <View style={styles.titlecontainer}>
+              <Text style={styles.title}>
+                {item.title}
+              </Text>
+            </View>
+            <Divider />
+            <View style={styles.bodycontainer}>
+              <Text style={styles.text}>
+                {item.body}
+              </Text>
+            </View>
             <View style={{ flexDirection: 'row' }}>
-              <View >
-                <Text >
-                  {item.title}
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('PostEdit', { item })}
+                style={[styles.button, { backgroundColor: `#daa520` }]}>
+                <Text style={styles.text}>
+                  Edit
                 </Text>
-              </View>
-              <View >
-                <Text >
-                  {item.body}
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this._delPost()}
+                style={[styles.button, { backgroundColor: `#daa520` }]}>
+                <Text style={styles.text}>
+                  Delete
                 </Text>
-                <TouchableOpacity
-                  onPress={() => this._delPost()}
-                  style={[styles.button, { backgroundColor: `#daa520` }]}>
-                  <Text style={styles.text}>
-                    eliminar
-                  </Text>
-                </TouchableOpacity>
-              </View>
-
-
+              </TouchableOpacity>
             </View>
           </View>
         </ImageBackground>
@@ -85,19 +86,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center'
+    color: '#000000',
+    textAlign: 'center',
+    shadowColor: '#fff'
   },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#daa520',
     textAlign: 'center'
   },
   titlecontainer: {
-    margin: width / 20,
+    margin: width / 50,
     height: width / 2.5,
-    width: width / 2.5,
     borderRadius: 15,
     justifyContent: 'center',
   },
@@ -107,15 +108,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
+
     margin: width / 20,
-    height: width / 2.5,
+    height: width / 10,
     width: width / 2.5,
-    borderRadius: 15,
+    borderRadius: 3,
     justifyContent: 'center',
     backgroundColor: '#fff',
     zIndex: 1
   }
-
 })
 
 const mapDispatchToProps = dispatch => ({
