@@ -50,7 +50,7 @@ return (
             
             style: {
                 position: 'absolute',
-                bottom: 25,
+                bottom: 40,
                 left: 20,
                 right: 20,
                 elevation: 0,
