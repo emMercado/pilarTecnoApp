@@ -7,11 +7,15 @@ import {
   ImageBackground,
   TouchableOpacity,
   View,
+  FlatList,
+  ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 
-import { actions } from '../store'
-import { connect } from 'react-redux'
-import { Divider } from 'react-native-elements'
+import { actions } from '../store';
+import { connect } from 'react-redux';
+import { Divider } from 'react-native-elements';
+import { fetchComments } from '../api';
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -22,7 +26,53 @@ class PostDetail extends React.Component {
 
   constructor(props) {
     super(props);
+    const { item } = this.props.route.params;
+    this.state = {
+      id: item.id,
+      body: item.body,
+      comments: [],
+    };
   }
+
+  componentDidMount = () => {
+    fetchComments({ id: this.state.id }).then(res => {
+      console.log('comentarios: ' + JSON.stringify(res[1]));
+      this.setState({
+        comments: res[1],
+      });
+    });
+  };
+
+  keyExtractor = (item, index) => index.toString();
+
+  renderItem = ({ item }) => (
+    <View
+      style={{
+        margin: 20,
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        borderRadius: 3,
+        padding: 5,
+      }}>
+      <View style={styles.titlecontainer}>
+        <Text style={styles.title}>
+          {item.email}
+        </Text>
+        <Divider />
+      </View>
+      <View style={styles.bodycontainer}>
+        <Text style={styles.text2}>
+          {item.name}
+        </Text>
+        <Divider />
+      </View>
+      <View style={styles.bodycontainer}>
+        <Text style={styles.text2}>
+          {item.body}
+        </Text>
+      </View>
+
+    </View>
+  );
 
   _delPost = () => {
     const { item } = this.props.route.params;
@@ -35,6 +85,7 @@ class PostDetail extends React.Component {
 
   render() {
     const { item } = this.props.route.params;
+    const { comments } = this.state;
     return (
 
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
@@ -55,6 +106,7 @@ class PostDetail extends React.Component {
               </Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
+              
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('PostEdit', { item })}
                 style={[styles.button, { backgroundColor: `#daa520` }]}>
@@ -69,7 +121,33 @@ class PostDetail extends React.Component {
                   Delete
                 </Text>
               </TouchableOpacity>
+
+              
             </View>
+            {!comments ? (
+                <ActivityIndicator />
+              ) : (
+                <View
+                  style={{
+                    marginTop: 5,
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    borderRadius: 8,
+                    margin: 20,
+                    padding: 5,
+                  }}>
+                  <Text
+                    style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>
+                    Comments
+                  </Text>
+                  <Divider />
+                  <FlatList
+                    keyExtractor={this.keyExtractor}
+                    data={comments}
+                    renderItem={this.renderItem}
+                  />
+
+                </View>
+              )}
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -87,6 +165,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#000000',
+    textAlign: 'center',
+    shadowColor: '#fff'
+  },
+  text2: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
     textAlign: 'center',
     shadowColor: '#fff'
   },
