@@ -23,10 +23,11 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-    </application>
-      <meta-data
+    <meta-data
       android:name="com.google.android.geo.API_KEY"
-      android:value="AIzaSyBnpXGGpDUYzdSHc28OW4VVWSPtn7j0d7c"/>
+      android:value="AIzaSyBnpXGGpDUYzdSHc28OW4VVWSPtn7j0d7c"/> 
       <!-- You will also only need to add this uses-library tag -->
-      <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+     <uses-library android:name="org.apache.http.legacy" android:required="false"/> 
+    </application>
+
 </manifest>
