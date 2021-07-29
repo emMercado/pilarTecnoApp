@@ -1,3 +1,5 @@
+import { PermissionsAndroid, Platform, ToastAndroid } from "react-native";
+
 export const hasLocationPermission = async () => {
     if (Platform.OS === 'ios') {
         const hasPermission = await this.hasLocationPermissionIOS();

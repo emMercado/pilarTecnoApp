@@ -9,9 +9,10 @@ import {
   ImageBackground,
   TouchableOpacity,
   View,
-  Alert
+  Alert,
+  Button,
 } from 'react-native';
-import { Image, Icon, Switch } from 'react-native-elements';
+import { Image, Icon, Switch, Divider } from 'react-native-elements';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { hasLocationPermission, hasLocationPermissionIOS } from '../services/LocationPermission';
@@ -38,13 +39,13 @@ export default class Map extends React.Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
+      mapType: false,
     };
-    // const [isEnabled, setIsEnabled] = useState(false);
-    //const toggleSwitch = () => setIsEnabled => !previousState);
-
   }
+
   onRegionChange = region => {
     this.setState({
+      ...this.state,
       region,
     });
   };
@@ -68,7 +69,7 @@ export default class Map extends React.Component {
           },
           1000
         );
-        this.setState({ region: { ...this.state.region, longitude, latitude } })
+        this.setState({ ...this.state, region: { ...this.state.region, longitude, latitude } })
         console.log('posicion actual... Latitud: ' + `${JSON.stringify(longitude)}` + 'latitud: ' + `${JSON.stringify(latitude)}`)
       },
       (error) => {
@@ -99,19 +100,43 @@ export default class Map extends React.Component {
 
   render() {
     return (
+
       <SafeAreaView style={{ flex: 1 }}>
+        <View styles={styles.switch}>
+          <Switch
+            styles={styles.switch}
+            trackColor={{ false: "#767577", true: "#8d2d84" }}
+            // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() =>
+              this.setState({
+                ...this.state,
+                mapType: !this.state.mapType
+              })}
+            value={this.state.mapType}
+
+            activeText={'asdasd'}
+            inActiveText={'Ofasdasdasf'}
+          />
+        </View>
         <MapView
           ref={map => {
             this.mapRef = map;
           }}
           provider={PROVIDER_GOOGLE}
-          mapType='standard'
-          // mapType='hybrid'
+          mapType={this.state.mapType ? "hybrid" : "standard"}
           style={styles.map}
           initialRegion={this.state.region}
           // region={this.state.region}
           onRegionChangeComplete={this.onRegionChange}
         />
+        <View>
+          {/* 
+          <Button title="Hybrid" onPress={() => this.setState({ mapType: false })} />
+          <Divider />
+          <Button title="Satellite" onPress={() => this.setState({ mapType: true })} />
+ */}
+        </View>
 
         <View style={{ position: 'absolute', flexDirection: 'row', backgroundColor: 'white', borderRadius: 100, width: width / 10, alignSelf: 'flex-end', margin: 30, marginRight: 30, alignItems: 'center', justifyContent: 'center' }}>
           <Icon
@@ -157,5 +182,46 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
     zIndex: 1
+  },
+  footer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    bottom: 140,
+    position: 'absolute',
+    width: '100%'
+  },
+  region: {
+    color: '#fff',
+    lineHeight: 20,
+    margin: 20,
+    alignSelf: 'center'
+  },
+  marker: {
+    height: 48,
+    width: 48
+  },
+  map: {
+    /* ...StyleSheet.absoluteFillObject,
+    marginTop:  */
+    width: 420,
+    height: 595,
+    alignSelf: 'center'
+  },
+  markerFixed: {
+    left: '50%',
+    marginLeft: -24,
+    marginTop: -48,
+    position: 'absolute',
+    top: '50%'
+  },
+  content: {
+    margin: width / 20,
+    height: width / 2.5,
+    width: width / 2.5,
+    borderRadius: 15,
+    justifyContent: 'center',
+  },
+  switch: {
+    position: 'absolute',
   }
+
 })
