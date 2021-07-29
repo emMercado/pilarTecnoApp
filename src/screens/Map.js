@@ -17,17 +17,14 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { hasLocationPermission, hasLocationPermissionIOS } from '../services/LocationPermission';
 
-
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
-
-
+const image = { uri: 'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg' }
 const ASPECT_RATIO = width / height;
 const LATITUDE = -59.45021;
 const LONGITUDE = -66.86045;
 const LATITUDE_DELTA = 0.00422;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -102,11 +99,14 @@ export default class Map extends React.Component {
     return (
 
       <SafeAreaView style={{ flex: 1 }}>
-        <View styles={styles.switch}>
+        <ImageBackground
+          source={image}
+          style={styles.image}
+        >
+        <View style={styles.content2}>
           <Switch
             styles={styles.switch}
             trackColor={{ false: "#767577", true: "#8d2d84" }}
-            // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={() =>
               this.setState({
@@ -114,9 +114,6 @@ export default class Map extends React.Component {
                 mapType: !this.state.mapType
               })}
             value={this.state.mapType}
-
-            activeText={'asdasd'}
-            inActiveText={'Ofasdasdasf'}
           />
         </View>
         <MapView
@@ -135,7 +132,7 @@ export default class Map extends React.Component {
           <Button title="Hybrid" onPress={() => this.setState({ mapType: false })} />
           <Divider />
           <Button title="Satellite" onPress={() => this.setState({ mapType: true })} />
- */}
+          */}
         </View>
 
         <View style={{ position: 'absolute', flexDirection: 'row', backgroundColor: 'white', borderRadius: 100, width: width / 10, alignSelf: 'flex-end', margin: 30, marginRight: 30, alignItems: 'center', justifyContent: 'center' }}>
@@ -156,7 +153,7 @@ export default class Map extends React.Component {
             {JSON.stringify(this.state.region.longitude)}{"\n"}latitud:
             {JSON.stringify(this.state.region.latitude)}</Text>
         </SafeAreaView>
-
+        </ImageBackground>
       </SafeAreaView >
     )
   }
@@ -166,7 +163,6 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center"
   },
   text: {
     fontSize: 30,
@@ -200,8 +196,6 @@ const styles = StyleSheet.create({
     width: 48
   },
   map: {
-    /* ...StyleSheet.absoluteFillObject,
-    marginTop:  */
     width: 420,
     height: 595,
     alignSelf: 'center'
@@ -219,6 +213,9 @@ const styles = StyleSheet.create({
     width: width / 2.5,
     borderRadius: 15,
     justifyContent: 'center',
+  },
+  content2: {
+    width: width / 5,
   },
   switch: {
     position: 'absolute',
