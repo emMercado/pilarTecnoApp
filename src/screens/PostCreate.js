@@ -25,16 +25,18 @@ class PostCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      body: '',
+      id: '',
+      name: '',
+      address: '',
+      img: '',
+      urlMap: '',
     }
   }
 
-
   _send = () => {
-    const { title, body } = this.state
-    ///VALIDACIONES
-    this.props.createPost({ title, body }).then(() => {
+    const { id, name, address, img, urlMap } = this.state
+    ///Validations
+    this.props.createPost({ id, name, address, img, urlMap }).then(() => {
       this.props.navigation.goBack()
     })
   }
@@ -47,34 +49,68 @@ class PostCreate extends React.Component {
           source={image}
           style={styles.image}
         >
-          <Input
-            placeholder='Titulo'
-            inputContainerStyle={{
-              width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
-            }}
-            inputStyle={{ color: 'white', marginLeft: 15 }}
-            placeholderTextColor='#ccc'
-            value={this.state.title}
-            onChangeText={(value) => this.setState({ title: value })}
-          />
-          <Input
-            placeholder='Descripcion'
-            inputContainerStyle={{
-              width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
-              pading: 15
-            }}
-            inputStyle={{ color: 'white', marginLeft: 15 }}
-            placeholderTextColor='#ccc'
-            value={this.state.body}
-            onChangeText={(value) => this.setState({ body: value })}
-            multiline
-            numberOfLines={2}
-          />
+          <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            <Input
+              placeholder='Name'
+              inputContainerStyle={{
+                /* height: height / 120,
+                width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', padding: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              value={this.state.name}
+              onChangeText={(value) => this.setState({ name: value })}
+            />
+            <Input
+              placeholder='Address'
+              inputContainerStyle={{
+                /*  height: height / 40,
+                 width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center'/* , height: height * 0.2 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                padding: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              value={this.state.address}
+              onChangeText={(value) => this.setState({ address: value })}
+              multiline
+            /* numberOfLines={2} */
+            />
+            <Input
+              placeholder='Photo'
+              inputContainerStyle={{
+                /* height: height / 5,
+                width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center'/* , height: height * 0.3 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                padding: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              value={this.state.img}
+              onChangeText={(value) => this.setState({ img: value })}
+              multiline
+            /*  numberOfLines={2} */
+            />
+            <Input
+              placeholder='Url Map Direction'
+              inputContainerStyle={{
+                /* height: height / 5,
+                width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center'/* , height: height * 0.2 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                padding: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              value={this.state.urlMap}
+              onChangeText={(value) => this.setState({ urlMap: value })}
+              multiline
+            /* numberOfLines={2} */
+            />
 
-          <Button title='Postear' onPress={() => this._send()}
-            style={{ width: width * 0.8 }} />
+            <Button title='Create' onPress={() => this._send()}
+              style={{ width: width * 0.8 }} />
+          </View>
         </ImageBackground>
       </SafeAreaView>
     )
@@ -102,14 +138,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     zIndex: 1
   },
- /*  content: {
-    margin: width / 20,
-    height: width / 2.5,
-    width: width / 2.5,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center'
-  } */
+  /*  content: {
+     margin: width / 20,
+     height: width / 2.5,
+     width: width / 2.5,
+     borderRadius: 15,
+     justifyContent: 'center',
+     alignItems: 'center'
+   } */
 })
 
 const mapDispatchToProps = dispatch => ({

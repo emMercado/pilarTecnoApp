@@ -11,7 +11,8 @@ import {
     View,
     Alert,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    Image
 } from 'react-native';
 import { Button, Divider } from 'react-native-elements'
 import { actions } from '../store'
@@ -46,21 +47,26 @@ class Posts extends React.Component {
             }}>
                 <View style={styles.titlecontainer}>
                     <Text style={styles.title}>
-                        {item.title}
+                        {item.name}
                     </Text>
                 </View>
                 <Divider />
                 <View style={styles.bodycontainer}>
                     <Text style={styles.text}>
-                        {item.body}
+                        {item.address}
                     </Text>
                 </View>
+              {/*   <View style={styles.bodycontainer}>
+                    <Image style={styles.text}>
+                        {item.img}
+                    </Image>
+                </View> */}
             </View>
         </TouchableWithoutFeedback>
     )
 
     render() {
-
+        console.log(this.state.posts)
         return (
 
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>

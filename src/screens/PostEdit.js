@@ -20,8 +20,11 @@ class PostEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      body: '',
+      id: '',
+      name: '',
+      address: '',
+      img: '',
+      urlMap: '',
     }
   }
 
@@ -29,18 +32,21 @@ class PostEdit extends React.Component {
     const { item } = this.props.route.params;
     item ?
       this.setState({
-        title: item.title,
-        body: item.body,
+        id: item.id,
+        name: item.name,
+        address: item.address,
+        img: item.img,
+        urlMap: item.urlMap
       })
       : null
   }
 
   _updatePost = () => {
     const { item } = this.props.route.params;
-    const { id } = item
-    const { title, body } = this.state
+    const { _id } = item
+    const {name, address, img, urlMap } = this.state
 
-    this.props.updatePosts({ id, title, body }).then(() => {
+    this.props.updatePosts({ _id, name, address, img, urlMap }).then(() => {
       this.props.navigation.popToTop()/* navigate('Posts') */
     })
   }
@@ -56,27 +62,55 @@ class PostEdit extends React.Component {
             <Input
               placeholder='Titulo'
               inputContainerStyle={{
-                width: width * 0.8, alignItems: 'flex-start',
+               /*  width: width * 0.8, alignItems: 'flex-start', */
                 alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
               placeholderTextColor='#ccc'
-              value={this.state.title}
-              onChangeText={(value) => this.setState({ title: value })}
+              value={this.state.name}
+              onChangeText={(value) => this.setState({ name: value })}
             />
             <Input
               placeholder='Descripcion'
               inputContainerStyle={{
-                width: width * 0.8, alignItems: 'flex-start',
-                alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
+               /*  width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center'/* , height: height * 0.4 */, backgroundColor: 'rgba(0,0,0,0.5)',
                 pading: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
               placeholderTextColor='#ccc'
               multiline
               numberOfLines={2}
-              value={this.state.body}
-              onChangeText={(value) => this.setState({ body: value })}
+              value={this.state.address}
+              onChangeText={(value) => this.setState({ address: value })}
+            />
+            <Input
+              placeholder='Descripcion'
+              inputContainerStyle={{
+               /*  width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center'/* , height: height * 0.4 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                pading: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              multiline
+              numberOfLines={2}
+              value={this.state.img}
+              onChangeText={(value) => this.setState({ img: value })}
+            />
+            <Input
+              placeholder='Descripcion'
+              inputContainerStyle={{
+            /*     width: width * 0.8, alignItems: 'flex-start', */
+                alignSelf: 'center'/* , height: height * 0.4 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                pading: 15
+              }}
+              inputStyle={{ color: 'white', marginLeft: 15 }}
+              placeholderTextColor='#ccc'
+              multiline
+              numberOfLines={2}
+              value={this.state.urlMap}
+              onChangeText={(value) => this.setState({ urlMap: value })}
             />
             <Button
               title='Save Change' onPress={() => this._updatePost()}

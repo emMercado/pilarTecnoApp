@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   View,
+  Image,
   FlatList,
   ActivityIndicator,
   ScrollView,
@@ -29,19 +30,18 @@ class PostDetail extends React.Component {
     const { item } = this.props.route.params;
     this.state = {
       id: item.id,
-      body: item.body,
-      comments: [],
     };
   }
 
-  componentDidMount = () => {
-    fetchComments({ id: this.state.id }).then(res => {
-      console.log('comentarios: ' + JSON.stringify(res[1]));
-      this.setState({
+/*   componentDidMount = () => { */
+  /*   fetchComments({ id: this.state.id }).then(res => { */
+     /*  console.log('comentarios: ' + JSON.stringify(res[1])); */
+     /*  this.setState({
         comments: res[1],
-      });
-    });
-  };
+      }); */
+   /*  }); */
+  /* };
+ */
 
   keyExtractor = (item, index) => index.toString();
 
@@ -55,37 +55,40 @@ class PostDetail extends React.Component {
       }}>
       <View style={styles.titlecontainer}>
         <Text style={styles.title}>
-          {item.email}
-        </Text>
-        <Divider />
-      </View>
-      <View style={styles.bodycontainer}>
-        <Text style={styles.text2}>
           {item.name}
         </Text>
         <Divider />
       </View>
       <View style={styles.bodycontainer}>
         <Text style={styles.text2}>
+          {item.address}
+        </Text>
+        <Divider />
+      </View>
+     {/*  <View style={styles.bodycontainer}>
+        <Text style={styles.text2}>
           {item.body}
         </Text>
-      </View>
+      </View> */}
 
     </View>
   );
 
   _delPost = () => {
     const { item } = this.props.route.params;
-    const { id } = item;
+    const { _id } = item;
+    console.log('------------------------')
+    console.log('id del post detail',_id)
+    console.log('------------------------')
 
-    this.props.delPost({ id }).then(() => {
+    this.props.delPost({ _id }).then(() => {
       this.props.navigation.goBack()
     })
   }
 
   render() {
+
     const { item } = this.props.route.params;
-    const { comments } = this.state;
     return (
 
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
@@ -93,38 +96,47 @@ class PostDetail extends React.Component {
           source={image}
           style={styles.image}
         >
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('PostEdit', { item })}
+              style={[styles.button, { backgroundColor: `#daa520` }]}>
+              <Text style={styles.text}>
+                {/*  {console.log('--------------------'),
+                  console.log(item._id),
+                  console.log('--------------------')}  */}
+                Edit
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this._delPost()}
+              style={[styles.button, { backgroundColor: `#daa520` }]}>
+              <Text style={styles.text}>
+                Delete
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View style={{ flex: 1 }} >
             <View style={styles.titlecontainer}>
               <Text style={styles.title}>
-                {item.title}
+                {item.name}
               </Text>
             </View>
             <Divider />
             <View style={styles.bodycontainer}>
               <Text style={styles.text}>
-                {item.body}
+                {item.address}
               </Text>
             </View>
-            <View style={{ flexDirection: 'row' }}>
-              
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('PostEdit', { item })}
-                style={[styles.button, { backgroundColor: `#daa520` }]}>
-                <Text style={styles.text}>
-                  Edit
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this._delPost()}
-                style={[styles.button, { backgroundColor: `#daa520` }]}>
-                <Text style={styles.text}>
-                  Delete
-                </Text>
-              </TouchableOpacity>
-
-              
+            <View>
+              <Image
+                style={styles.tinyLogo}
+                source={{ uri: item.img }} />
+              <Text style={styles.text}>
+              </Text>
             </View>
-            {!comments ? (
+
+
+       {/*      {!comments ? (
                 <ActivityIndicator />
               ) : (
                 <View
@@ -147,7 +159,7 @@ class PostDetail extends React.Component {
                   />
 
                 </View>
-              )}
+              )}  */}
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -156,6 +168,10 @@ class PostDetail extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  tinyLogo: {
+    margin: width / 5,
+    height: width / 2.5,
+  },
   image: {
     flex: 1,
     resizeMode: "cover",
@@ -188,12 +204,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bodycontainer: {
-
     borderRadius: 15,
     justifyContent: 'center',
   },
   button: {
-
     margin: width / 20,
     height: width / 10,
     width: width / 2.5,
