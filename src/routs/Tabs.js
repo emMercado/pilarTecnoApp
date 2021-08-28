@@ -108,7 +108,7 @@ return (
             tabBarIcon: ({ color }) => (
                 <View>
                 <Icon name={'marker'} type="font-awesome-5" size={20} color={color} />
-                <Text style={styles.text}>Posts</Text>
+                <Text style={styles.text}>Places</Text>
             </View>
             ),
         }}

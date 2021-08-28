@@ -65,7 +65,7 @@ export default class Home extends React.Component {
               onPress={()=> this.props.navigation.navigate('Posts')}
               style={[styles.button, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
               <Text style={styles.text}>
-                Posts
+                Places
               </Text>
             </TouchableOpacity>
 
