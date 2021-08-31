@@ -8,15 +8,12 @@ import {
   TouchableOpacity,
   View,
   Image,
-  FlatList,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
 
+} from 'react-native';
+import { Link } from '@react-navigation/native';
 import { actions } from '../store';
 import { connect } from 'react-redux';
 import { Divider } from 'react-native-elements';
-import { fetchComments } from '../api';
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -32,16 +29,6 @@ class PostDetail extends React.Component {
       id: item.id,
     };
   }
-
-/*   componentDidMount = () => { */
-  /*   fetchComments({ id: this.state.id }).then(res => { */
-     /*  console.log('comentarios: ' + JSON.stringify(res[1])); */
-     /*  this.setState({
-        comments: res[1],
-      }); */
-   /*  }); */
-  /* };
- */
 
   keyExtractor = (item, index) => index.toString();
 
@@ -65,22 +52,12 @@ class PostDetail extends React.Component {
         </Text>
         <Divider />
       </View>
-     {/*  <View style={styles.bodycontainer}>
-        <Text style={styles.text2}>
-          {item.body}
-        </Text>
-      </View> */}
-
     </View>
   );
 
   _delPost = () => {
     const { item } = this.props.route.params;
     const { _id } = item;
-    console.log('------------------------')
-    console.log('id del post detail',_id)
-    console.log('------------------------')
-
     this.props.delPost({ _id }).then(() => {
       this.props.navigation.goBack()
     })
@@ -90,7 +67,6 @@ class PostDetail extends React.Component {
 
     const { item } = this.props.route.params;
     return (
-
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
         <ImageBackground
           source={image}
@@ -101,9 +77,6 @@ class PostDetail extends React.Component {
               onPress={() => this.props.navigation.navigate('PostEdit', { item })}
               style={[styles.button, { backgroundColor: `#daa520` }]}>
               <Text style={styles.text}>
-                {/*  {console.log('--------------------'),
-                  console.log(item._id),
-                  console.log('--------------------')}  */}
                 Edit
               </Text>
             </TouchableOpacity>
@@ -134,32 +107,6 @@ class PostDetail extends React.Component {
               <Text style={styles.text}>
               </Text>
             </View>
-
-
-       {/*      {!comments ? (
-                <ActivityIndicator />
-              ) : (
-                <View
-                  style={{
-                    marginTop: 5,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    borderRadius: 8,
-                    margin: 20,
-                    padding: 5,
-                  }}>
-                  <Text
-                    style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>
-                    Comments
-                  </Text>
-                  <Divider />
-                  <FlatList
-                    keyExtractor={this.keyExtractor}
-                    data={comments}
-                    renderItem={this.renderItem}
-                  />
-
-                </View>
-              )}  */}
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -212,6 +159,16 @@ const styles = StyleSheet.create({
     height: width / 10,
     width: width / 2.5,
     borderRadius: 3,
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    zIndex: 1
+  },
+  button2: {
+    margin: width / 30,
+    justifyContent: 'center',
+    height: width / 10,
+    width: width / 2.5,
+    borderRadius: 2,
     justifyContent: 'center',
     backgroundColor: '#fff',
     zIndex: 1

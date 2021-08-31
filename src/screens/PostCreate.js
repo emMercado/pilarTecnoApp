@@ -15,11 +15,9 @@ import { Input, Button } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { actions } from '../store'
 
-
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 const image = { uri: 'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg' }
-
 
 class PostCreate extends React.Component {
   constructor(props) {
@@ -49,12 +47,10 @@ class PostCreate extends React.Component {
           source={image}
           style={styles.image}
         >
-          <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' , margin: width/20 }}>
             <Input
               placeholder='Name'
               inputContainerStyle={{
-                /* height: height / 120,
-                width: width * 0.8, alignItems: 'flex-start', */
                 alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', padding: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -65,9 +61,7 @@ class PostCreate extends React.Component {
             <Input
               placeholder='Address'
               inputContainerStyle={{
-                /*  height: height / 40,
-                 width: width * 0.8, alignItems: 'flex-start', */
-                alignSelf: 'center'/* , height: height * 0.2 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
                 padding: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -75,14 +69,13 @@ class PostCreate extends React.Component {
               value={this.state.address}
               onChangeText={(value) => this.setState({ address: value })}
               multiline
-            /* numberOfLines={2} */
+
             />
             <Input
               placeholder='Photo'
               inputContainerStyle={{
-                /* height: height / 5,
-                width: width * 0.8, alignItems: 'flex-start', */
-                alignSelf: 'center'/* , height: height * 0.3 */, backgroundColor: 'rgba(0,0,0,0.5)',
+
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
                 padding: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -90,14 +83,11 @@ class PostCreate extends React.Component {
               value={this.state.img}
               onChangeText={(value) => this.setState({ img: value })}
               multiline
-            /*  numberOfLines={2} */
             />
             <Input
               placeholder='Url Map Direction'
               inputContainerStyle={{
-                /* height: height / 5,
-                width: width * 0.8, alignItems: 'flex-start', */
-                alignSelf: 'center'/* , height: height * 0.2 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
                 padding: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -105,11 +95,14 @@ class PostCreate extends React.Component {
               value={this.state.urlMap}
               onChangeText={(value) => this.setState({ urlMap: value })}
               multiline
-            /* numberOfLines={2} */
+              numberOfLines={1}
             />
 
             <Button title='Create' onPress={() => this._send()}
               style={{ width: width * 0.8 }} />
+            <View style={{flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' , margin: width/20 }}>
+              <Button></Button>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -130,7 +123,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   button: {
-    margin: width / 20,
+    margin: width / 30,
     height: width / 2.5,
     width: width / 2.5,
     borderRadius: 15,
@@ -138,14 +131,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     zIndex: 1
   },
-  /*  content: {
-     margin: width / 20,
-     height: width / 2.5,
-     width: width / 2.5,
-     borderRadius: 15,
-     justifyContent: 'center',
-     alignItems: 'center'
-   } */
 })
 
 const mapDispatchToProps = dispatch => ({

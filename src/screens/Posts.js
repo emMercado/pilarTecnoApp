@@ -56,21 +56,14 @@ class Posts extends React.Component {
                         {item.address}
                     </Text>
                 </View>
-              {/*   <View style={styles.bodycontainer}>
-                    <Image style={styles.text}>
-                        {item.img}
-                    </Image>
-                </View> */}
             </View>
         </TouchableWithoutFeedback>
     )
 
     render() {
-        console.log(this.state.posts)
         return (
 
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-
                 {
                     !this.props.posts ?
                         <ActivityIndicator />

@@ -21,8 +21,8 @@ const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 const image = { uri: 'https://getwallpapers.com/wallpaper/full/9/9/f/267111.jpg' }
 const ASPECT_RATIO = width / height;
-const LATITUDE = -59.45021;
-const LONGITUDE = -66.86045;
+const LATITUDE = 0;
+const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.00422;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -127,13 +127,6 @@ export default class Map extends React.Component {
           // region={this.state.region}
           onRegionChangeComplete={this.onRegionChange}
         />
-        <View>
-          {/* 
-          <Button title="Hybrid" onPress={() => this.setState({ mapType: false })} />
-          <Divider />
-          <Button title="Satellite" onPress={() => this.setState({ mapType: true })} />
-          */}
-        </View>
 
         <View style={{ position: 'absolute', flexDirection: 'row', backgroundColor: 'white', borderRadius: 100, width: width / 10, alignSelf: 'flex-end', margin: 30, marginRight: 30, alignItems: 'center', justifyContent: 'center' }}>
           <Icon

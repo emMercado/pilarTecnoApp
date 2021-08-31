@@ -47,7 +47,7 @@ class PostEdit extends React.Component {
     const {name, address, img, urlMap } = this.state
 
     this.props.updatePosts({ _id, name, address, img, urlMap }).then(() => {
-      this.props.navigation.popToTop()/* navigate('Posts') */
+      this.props.navigation.navigate('Posts')
     })
   }
 
@@ -60,9 +60,8 @@ class PostEdit extends React.Component {
         >
           <View style={{ flex: 1 }}>
             <Input
-              placeholder='Titulo'
+              placeholder='Place of vaccination name'
               inputContainerStyle={{
-               /*  width: width * 0.8, alignItems: 'flex-start', */
                 alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -71,10 +70,9 @@ class PostEdit extends React.Component {
               onChangeText={(value) => this.setState({ name: value })}
             />
             <Input
-              placeholder='Descripcion'
+              placeholder='Address'
               inputContainerStyle={{
-               /*  width: width * 0.8, alignItems: 'flex-start', */
-                alignSelf: 'center'/* , height: height * 0.4 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
                 pading: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -85,10 +83,9 @@ class PostEdit extends React.Component {
               onChangeText={(value) => this.setState({ address: value })}
             />
             <Input
-              placeholder='Descripcion'
+              placeholder='Image'
               inputContainerStyle={{
-               /*  width: width * 0.8, alignItems: 'flex-start', */
-                alignSelf: 'center'/* , height: height * 0.4 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
                 pading: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
@@ -99,10 +96,9 @@ class PostEdit extends React.Component {
               onChangeText={(value) => this.setState({ img: value })}
             />
             <Input
-              placeholder='Descripcion'
+              placeholder='Url Map Direction'
               inputContainerStyle={{
-            /*     width: width * 0.8, alignItems: 'flex-start', */
-                alignSelf: 'center'/* , height: height * 0.4 */, backgroundColor: 'rgba(0,0,0,0.5)',
+                alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
                 pading: 15
               }}
               inputStyle={{ color: 'white', marginLeft: 15 }}
