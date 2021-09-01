@@ -15,7 +15,9 @@ return(
 
     <PostsStack.Navigator>
         <PostsStack.Screen name="Posts" component={Posts} 
+        style={{flex: 1}}
         options={{
+            
             title: 'Posts',
             headerStyle: {
                 backgroundColor: `#d2691e`,

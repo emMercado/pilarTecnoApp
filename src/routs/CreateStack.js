@@ -10,6 +10,7 @@ export default CreateStack = (props) => {
         <CreateStacks.Navigator>
             <CreateStacks.Screen name="Login" component={Login} 
                options={{
+                flex: 1,
                 title: 'PilarTecnoApp',
                 headerStyle: {
                     backgroundColor: `#d2691e`,

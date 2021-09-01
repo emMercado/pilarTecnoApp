@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default AppStack = (props) => {
     const user = useSelector(state => state.user.user)
     return (
-        <Stack.Navigator headerMode="none">
+        <Stack.Navigator headerMode="none" style={{flex: 1}}>
             {
 
                 user ? (

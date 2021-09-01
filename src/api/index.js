@@ -16,7 +16,7 @@ export const fetchPosts = () => {
         });
 }; */
 ///CREATE POST
-export const postPosts = ({ id, name, address, img, urlMap }) => {
+export const postPosts = ({ id, name, address, img, urlMap, latitude, longitude }) => {
     return fetch(BASE_URL + '/places', {
         method: 'POST',
         body: JSON.stringify({
@@ -25,6 +25,8 @@ export const postPosts = ({ id, name, address, img, urlMap }) => {
             address,
             img,
             urlMap,
+            latitude,
+            longitude
             /* userId: 1, */
         }),
         headers: {
@@ -36,7 +38,7 @@ export const postPosts = ({ id, name, address, img, urlMap }) => {
     });
 };
 ///EDIT POST
-export const putPost = ({ _id, name, address, img, urlMap }) => {
+export const putPost = ({ _id, name, address, img, urlMap, latitude, longitude }) => {
     const id = _id
     console.log('------------------------')
     console.log('id del index', id)
@@ -49,7 +51,9 @@ export const putPost = ({ _id, name, address, img, urlMap }) => {
             address,
             img,
             urlMap,
-           /*  userId: 1, */
+            latitude,
+            longitude
+            /*  userId: 1, */
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -73,7 +77,7 @@ export const deletePost = ({ data }) => {
         });
 };
 ///SHOW POST
-export const showPost = ({ id, name, address, img, urlMap }) => {
+export const showPost = ({ id, name, address, img, urlMap, latitude, longitude }) => {
     /* return fetch(`${BASE_URL}/places/${id}${id}`, { */
     return fetch(`${BASE_URL}/places/${id}`, {
         method: 'PUT',
@@ -83,7 +87,9 @@ export const showPost = ({ id, name, address, img, urlMap }) => {
             address,
             img,
             urlMap,
-          /*   userId: 1, */
+            latitude,
+            longitude
+            /*   userId: 1, */
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',

@@ -72,7 +72,7 @@ class Posts extends React.Component {
                             source={image}
                             style={styles.image}
                         >
-                            <View style={{ flex: 1 }}>
+                            <View style={{ justifyContent: 'center' }}>
                                 <Button title='Crear Nuevo Post'
                                     onPress={() => this.props.navigation.navigate('PostCreate')} />
                                 <FlatList

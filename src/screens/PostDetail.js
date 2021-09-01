@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   Dimensions,
   StyleSheet,
   Text,
@@ -8,7 +9,7 @@ import {
   TouchableOpacity,
   View,
   Image,
-
+  Linking
 } from 'react-native';
 import { Link } from '@react-navigation/native';
 import { actions } from '../store';
@@ -27,7 +28,13 @@ class PostDetail extends React.Component {
     const { item } = this.props.route.params;
     this.state = {
       id: item.id,
+      name: item.name,
+      address: item.address,
+      urlMap: item.urlMap,
+      latitude: item.latitude,
+      longitude: item.longitude,
     };
+    this.linkToMap = this.linkToMap.bind(this)
   }
 
   keyExtractor = (item, index) => index.toString();
@@ -63,52 +70,82 @@ class PostDetail extends React.Component {
     })
   }
 
+  linkToMap = (latitude, longitude, name) => {
+    const scheme = Platform.select({
+      ios: 'maps:',
+      android: 'geo:',
+    });
+    const position = `${latitude}, ${longitude}`;
+    const label = name;
+    const urlMaps = `${scheme}${position}?q=${label}`;
+    Linking.openURL(urlMaps);
+  }
+
   render() {
 
     const { item } = this.props.route.params;
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
-        <ImageBackground
-          source={image}
-          style={styles.image}
-        >
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('PostEdit', { item })}
-              style={[styles.button, { backgroundColor: `#daa520` }]}>
-              <Text style={styles.text}>
-                Edit
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this._delPost()}
-              style={[styles.button, { backgroundColor: `#daa520` }]}>
-              <Text style={styles.text}>
-                Delete
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 1 }} >
-            <View style={styles.titlecontainer}>
-              <Text style={styles.title}>
-                {item.name}
-              </Text>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+        <ScrollView style={{ height: '100%', width: '100%' }}>
+          <ImageBackground
+            source={image}
+            style={styles.image}
+          >
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('PostEdit', { item })}
+                style={[styles.button, { backgroundColor: `#daa520` }]}>
+                <Text style={styles.text}>
+                  Edit
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this._delPost()}
+                style={[styles.button, { backgroundColor: `#daa520` }]}>
+                <Text style={styles.text}>
+                  Delete
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.linkToMap(item.latitude, item.longitude, item.name)}
+                style={[styles.button, { backgroundColor: `#daa520` }]}>
+                <Text style={styles.text}>Map</Text>
+              </TouchableOpacity>
             </View>
-            <Divider />
-            <View style={styles.bodycontainer}>
-              <Text style={styles.text}>
-                {item.address}
-              </Text>
+            <View style={{ flex: 1 }} >
+              <View style={styles.titlecontainer}>
+                <Text style={styles.title}>
+                  {item.name}
+                </Text>
+              </View>
+
+                <View style={{ margin: width / 8 }}></View>
+              <View style={styles.titlecontainer}>
+                <Text style={styles.text}>
+                  {item.address}
+                </Text>
+                {/* <Text style={styles.text}>
+                  {item.urlMap}
+                </Text> */}
+                <Image
+                  style={styles.tinyLogo}
+                  source={{ uri: item.img }} />
+              </View>
+              <View style={styles.titlecontainer}>
+               {/*  <Text style={styles.text}>
+                  {item.latitude}
+                </Text>
+                <Text style={styles.text}>
+                  {item.longitude}
+                </Text> */}
+                <View style={{ margin: width / 8 }}></View>
+              </View>
+              <View style={styles.titlecontainer}>
+              </View>
             </View>
-            <View>
-              <Image
-                style={styles.tinyLogo}
-                source={{ uri: item.img }} />
-              <Text style={styles.text}>
-              </Text>
-            </View>
-          </View>
-        </ImageBackground>
+            <View style={{ margin: width / 11 }}></View>
+          </ImageBackground>
+        </ScrollView>
       </SafeAreaView>
     )
   }
@@ -155,10 +192,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    margin: width / 20,
+    margin: width / 80,
     height: width / 10,
-    width: width / 2.5,
-    borderRadius: 3,
+    width: width / 3.3,
+    borderRadius: 1,
     justifyContent: 'center',
     backgroundColor: '#fff',
     zIndex: 1

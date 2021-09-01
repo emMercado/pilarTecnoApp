@@ -28,7 +28,7 @@ const App = (props) => {
 
     if (initializing) { return null; }
     return (
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer ref={navigationRef} style={{ flex: 1}}>
         <AppStack />
       </NavigationContainer>
     );

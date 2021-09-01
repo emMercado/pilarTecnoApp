@@ -6,8 +6,9 @@ const HomeStack = createStackNavigator();
 
 export const HomeStackScreen = () => {
     return(
-        <HomeStack.Navigator>
+        <HomeStack.Navigator style={{flex: 1}}>
             <HomeStack.Screen name="Home" component={Home} 
+                style={{flex: 1, justifyContent: 'center'}}
                 options={{
                     title: 'Home',
                     headerStyle: {

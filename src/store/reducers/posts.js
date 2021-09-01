@@ -14,9 +14,12 @@ export default (state = initialState, action) => {
         return {
             ...state,
             posts: [...state.posts, {
-                userId: 1,
-                title: action.data.title,
-                body: action.data.body
+                name: action.data.name,
+                address: action.data.address,
+                img: action.data.img,
+                urlMap: action.data.urlMap,
+                latitude: action.data.latitude,
+                longitude: action.data.longitude,
             }],
         };
     };

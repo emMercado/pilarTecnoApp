@@ -8,6 +8,7 @@ export const ProfileStackScreen = () => {
     return(
         <ProfileStack.Navigator>
             <ProfileStack.Screen name="Profile" component={Profile} 
+            style={{flex: 1}}
             options={{
                 title: 'My Profile',
                 headerStyle: {
