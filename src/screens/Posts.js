@@ -28,7 +28,7 @@ class Posts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: null,
+            posts: this.setState.item,
         }
     }
 
@@ -62,7 +62,6 @@ class Posts extends React.Component {
 
     render() {
         return (
-
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
                 {
                     !this.props.posts ?
